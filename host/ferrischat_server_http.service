@@ -1,0 +1,21 @@
+[Unit]
+Description=FerrisChat HTTP Server
+After=network-online.target
+
+[Service]
+Type=simple
+Environment=RUST_LOG=debug
+ExecStart=/usr/bin/ferrischat_server_http /etc/ferrischat/config.toml
+ExecReload=/usr/bin/kill -HUP $MAINPID
+RestartSec=30
+Restart=on-failure
+OOMPolicy=kill
+User=ferris
+WorkingDirectory=/etc/ferrischat
+OOMScoreAdjust=-999
+ProtectSystem=true
+ProtectHome=true
+PrivateDevices=true
+
+[Install]
+WantedBy=multi-user.target
